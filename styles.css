@@ -75,11 +75,20 @@ body {
     width: 100%;
 }
 
-.container {
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
     width: 100%;
-    padding: 20px;
-    margin: 0 auto;
 }
+
+.container {
+    min-height: 100vh; /* full height of screen */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 
 header {
     display: flex;
