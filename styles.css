@@ -26,6 +26,20 @@
     --gradient-end: #bb66cc;
 }
 
+/* Basic reset and full-screen setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background: var(--background-color);
@@ -33,17 +47,14 @@ body {
     line-height: 1.6;
     transition: background-color 0.3s ease, color 0.3s ease;
     
-    /* FULL SCREEN FIX */
+    /* CRITICAL FIX - Remove flex centering from body */
     margin: 0;
     padding: 0;
     min-height: 100vh;
     width: 100vw;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
     
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* Don't center the body - let container handle layout */
 }
 
 .dark-mode body {
@@ -56,17 +67,20 @@ body {
     color: #000000;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 .container {
-    width: 100%;
-    max-width: 800px;
+    width: 100vw; /* Full viewport width */
+    min-height: 100vh; /* Full viewport height */
     padding: 20px;
-    margin: 0 auto;
+    margin: 0;
+    
+    /* Move the centering logic here */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    /* Ensure it takes full space */
+    box-sizing: border-box;
 }
 
 header {
@@ -74,6 +88,8 @@ header {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
+    width: 100%;
+    max-width: 800px; /* Limit content width for readability */
 }
 
 header h1 {
@@ -97,10 +113,13 @@ header h1 {
 
 main {
     width: 100%;
+    max-width: 800px; /* Match header width */
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 30px;
+    flex: 1;
+    justify-content: center;
 }
 
 .quote-container {
@@ -258,256 +277,125 @@ main {
     height: 100%;
     justify-content: center;
     align-items: center;
-    background-color: var(--background-color); /* Use theme variable instead of fixed white */
-    opacity: 0.9; /* Semi-transparent */
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a semi-transparent background */
     z-index: 2;
-    border-radius: 10px; /* Match the container's border radius */
 }
 
-/* Adjust dark mode specific styling for the loader if needed */
-.dark-mode .loading-spinner {
-    background-color: var(--background-color); /* Uses the dark mode background color */
-}
-
-/* From Uiverse.io by andrew-demchenk0 */
 .pyramid-loader {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  display: block;
-  transform-style: preserve-3d;
-  transform: rotateX(-20deg);
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: block;
+    transform-style: preserve-3d;
+    transform: rotateX(-20deg);
 }
 
 .wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  animation: spin 4s linear infinite;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: spin 4s linear infinite;
 }
 
 @keyframes spin {
-  100% {
-    transform: rotateY(360deg);
-  }
+    100% {
+        transform: rotateY(360deg);
+    }
 }
 
 .pyramid-loader .wrapper .side {
-  width: 70px;
-  height: 70px;
-/* you can choose any gradient or color you want */
-  /* background: radial-gradient( #2F2585 10%, #F028FD 70%, #2BDEAC 120%); */
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  transform-origin: center top;
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    transform-origin: center top;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
 .pyramid-loader .wrapper .side1 {
-  transform: rotateZ(-30deg) rotateY(90deg);
-  background: conic-gradient( #2BDEAC, #F028FD, #D8CCE6, #2F2585);
+    transform: rotateZ(-30deg) rotateY(90deg);
+    background: conic-gradient( #2BDEAC, #F028FD, #D8CCE6, #2F2585);
 }
 
 .pyramid-loader .wrapper .side2 {
-  transform: rotateZ(30deg) rotateY(90deg);
-  background: conic-gradient( #2F2585, #D8CCE6, #F028FD, #2BDEAC);
+    transform: rotateZ(30deg) rotateY(90deg);
+    background: conic-gradient( #2F2585, #D8CCE6, #F028FD, #2BDEAC);
 }
 
 .pyramid-loader .wrapper .side3 {
-  transform: rotateX(30deg);
-  background: conic-gradient( #2F2585, #D8CCE6, #F028FD, #2BDEAC);
+    transform: rotateX(30deg);
+    background: conic-gradient( #2F2585, #D8CCE6, #F028FD, #2BDEAC);
 }
 
 .pyramid-loader .wrapper .side4 {
-  transform: rotateX(-30deg);
-  background: conic-gradient( #2BDEAC, #F028FD, #D8CCE6, #2F2585);
+    transform: rotateX(-30deg);
+    background: conic-gradient( #2BDEAC, #F028FD, #D8CCE6, #2F2585);
 }
 
 .pyramid-loader .wrapper .shadow {
-  width: 60px;
-  height: 60px;
-  background: #8B5AD5;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  transform: rotateX(90deg) translateZ(-40px);
-  filter: blur(12px);
-}
-
-footer {
-    margin-top: 40px;
-    text-align: center;
-    color: var(--footer-color);
-    font-size: 0.9rem;
-}
-
-.modal {
-    display: none;
-    position: fixed;
+    width: 60px;
+    height: 60px;
+    background: #8B5AD5;
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--modal-overlay);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    transform: rotateX(90deg) translateZ(-40px);
+    filter: blur(12px);
 }
 
-.modal-content {
-    background-color: var(--card-bg);
-    padding: 30px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 10px 30px var(--shadow-color);
+/* Heart icon in footer */
+.heart-icon {
+    display: inline-block;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.modal-content h2 {
-    margin-bottom: 15px;
-    color: var(--primary-color);
+.heart-icon i {
+    color: #ff4d4d;
+    font-size: 1.2rem;
+    transition: all 0.5s ease;
+    display: inline-block;
 }
 
-.modal-content p {
-    margin-bottom: 20px;
+.heart-icon:hover i {
+    animation: heartbeat 1.5s infinite;
+    transform: scale(1.2);
+    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
 }
 
-.modal-content input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid var(--primary-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    margin-bottom: 20px;
-    background-color: var(--background-color);
-    color: var(--text-color);
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.2);
+    }
+    50% {
+        transform: scale(1);
+    }
+    75% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
-.modal-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-}
-
-.modal-buttons .btn {
-    width: 48%;
-}
-
-.api-note {
-    font-size: 0.8rem;
-    margin-top: 15px;
+/* Ensure the footer text is properly styled */
+footer p {
+    margin: 5px 0;
+    font-size: 0.9rem;
     color: var(--footer-color);
-}
-
-/* Media Queries */
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 1.5rem;
-    }
-
-    #quote-text {
-        font-size: 1.1rem;
-    }
-
-    .buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .modal-buttons {
-        flex-direction: column;
-    }
-
-    .modal-buttons .btn {
-        width: 100%;
-    }
-}
-
-.flex {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.outer-cont {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.3s; /* Added transition for box-shadow */
-  box-shadow: 0 0 10px rgba(74, 111, 255, 0.5); /* Initial glow */
-}
-
-.outer-cont:hover {
-  background-color: var(--btn-hover);
-  box-shadow: 0 0 20px rgba(74, 111, 255, 0.7); /* Stronger glow on hover */
-}
-
-.outer-cont::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  border-radius: 12px;
-  filter: blur(0);
-  z-index: -1;
-  box-shadow: none;
-  background: conic-gradient(
-    #00000000 80deg,
-    #40baf7,
-    #f34ad7,
-    #5bfcc4,
-    #00000000 280deg
-  );
-  transition: all 0.3s ease;
-}
-
-.outer-cont:hover::before {
-  filter: blur(15px);
-}
-
-.outer-cont:active::before {
-  filter: blur(5px);
-  transform: translateY(1px);
-}
-
-.outer-cont:active {
-  box-shadow:
-    inset 0px 0px 5px #ffffffa9,
-    inset 0px 35px 30px #000;
-  margin-top: 3px;
-}
-
-.buttons .outer-cont {
-    background-color: #f0f0f0;
-    color: #000;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.dark-mode .buttons .outer-cont {
-    background-color: #333;
-    color: #fff;
+    text-align: center;
 }
 
 /* Shine effect styles */
@@ -534,8 +422,6 @@ footer {
     white-space: nowrap;
     font-family: "Poppins", sans-serif;
 }
-
-/* Add other styles as needed */
 
 .button {
   --black-700: hsla(0 0% 12% / 1);
@@ -727,138 +613,24 @@ footer {
     z-index: 10;
 }
 
-/* Add these styles at the end of your styles.css file */
-.loading-spinner {
-    display: none; /* Initially hidden */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a semi-transparent background */
-    z-index: 2;
-}
-
-.pyramid-loader {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    display: block;
-    transform-style: preserve-3d;
-    transform: rotateX(-20deg);
-}
-
-.wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    animation: spin 4s linear infinite;
-}
-
-@keyframes spin {
-    100% {
-        transform: rotateY(360deg);
+/* Add better mobile responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        min-height: 100vh;
     }
-}
-
-.pyramid-loader .wrapper .side {
-    width: 70px;
-    height: 70px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    transform-origin: center top;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-}
-
-.pyramid-loader .wrapper .side1 {
-    transform: rotateZ(-30deg) rotateY(90deg);
-    background: conic-gradient( #2BDEAC, #F028FD, #D8CCE6, #2F2585);
-}
-
-.pyramid-loader .wrapper .side2 {
-    transform: rotateZ(30deg) rotateY(90deg);
-    background: conic-gradient( #2F2585, #D8CCE6, #F028FD, #2BDEAC);
-}
-
-.pyramid-loader .wrapper .side3 {
-    transform: rotateX(30deg);
-    background: conic-gradient( #2F2585, #D8CCE6, #F028FD, #2BDEAC);
-}
-
-.pyramid-loader .wrapper .side4 {
-    transform: rotateX(-30deg);
-    background: conic-gradient( #2BDEAC, #F028FD, #D8CCE6, #2F2585);
-}
-
-.pyramid-loader .wrapper .shadow {
-    width: 60px;
-    height: 60px;
-    background: #8B5AD5;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    transform: rotateX(90deg) translateZ(-40px);
-    filter: blur(12px);
-}
-/* Heart icon in footer */
-.heart-icon {
-    display: inline-block;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.heart-icon i {
-    color: #ff4d4d;
-    font-size: 1.2rem;
-    transition: all 0.5s ease;
-    display: inline-block;
-}
-
-.heart-icon:hover i {
-    animation: heartbeat 1.5s infinite;
-    transform: scale(1.2);
-    color: #ff0000;
-    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
-}
-
-@keyframes heartbeat {
-    0% {
-        transform: scale(1);
+    
+    header, main, footer {
+        max-width: 100%;
     }
-    25% {
-        transform: scale(1.2);
+    
+    .buttons {
+        flex-direction: column;
+        width: 100%;
     }
-    50% {
-        transform: scale(1);
+    
+    .button {
+        width: 100%;
+        justify-content: center;
     }
-    75% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* Ensure the footer text is properly styled */
-footer p {
-    margin: 5px 0;
-    font-size: 0.9rem;
-    color: var(--footer-color);
-    text-align: center;
-}
-
-footer {
-    margin-top: 20px;
-    padding: 10px 0;
-    text-align: center;
 }
