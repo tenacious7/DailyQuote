@@ -1,5 +1,7 @@
-# DailyQuote
+💬 DailyQuote
 A beautiful, modern web application that generates inspirational quotes with customizable backgrounds. Perfect for sharing daily motivation on social media or downloading as images for personal use.
+
+👉 Live Demo: https://qoutegeneratorai.netlify.app/
 
 ## ✨ Features
 
